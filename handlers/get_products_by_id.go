@@ -1,7 +1,6 @@
 package handlers
 
 import (
-	"log"
 	"net/http"
 	"strconv"
 
@@ -23,7 +22,6 @@ func GetProductsByID(w http.ResponseWriter, r *http.Request) {
 	for _, product := range database.ProductList {
 		if productId == product.ID {
 			util.SendData(w, product, http.StatusOK)
-			log.Println(product)
 			return
 		}
 	}

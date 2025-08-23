@@ -5,17 +5,16 @@ import (
 	"net/http"
 
 	"github.com/shafi21064/ecom-go/global_router"
-	"github.com/shafi21064/ecom-go/handlers"
+	"github.com/shafi21064/ecom-go/middleware"
 )
 
 func Serve() {
+	mngr := middleware.NewManager()
+	mngr.Use(middleware.Hudai, middleware.Logger)
+
 	mux := http.NewServeMux() // router
 
-	mux.Handle("GET /products", http.HandlerFunc(handlers.GetProducts))
-
-	mux.Handle("POST /products", http.HandlerFunc(handlers.CreateProduct))
-
-	mux.Handle("GET /products/{id}", http.HandlerFunc(handlers.GetProductsByID))
+	initRoutes(mux, mngr)
 
 	allRouter := global_router.GlobalRouter(mux)
 
