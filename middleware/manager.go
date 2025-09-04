@@ -27,10 +27,19 @@ func (mngr *Manager) With(next http.Handler, middlewares ...Middleware) http.Han
 	for _, middleware := range middlewares {
 		n = middleware(n)
 	}
+	return n
+}
 
-	/// For Global Middle ware
-	for _, globalMiddleWares := range mngr.globalMiddlewares {
-		n = globalMiddleWares(n)
+func (mngr *Manager) WrapMux(next http.Handler) http.Handler {
+	n := next
+
+	for i := len(mngr.globalMiddlewares) - 1; i >= 0; i-- {
+		// Apply each middleware in reverse order
+		n = mngr.globalMiddlewares[i](n)
 	}
+
+	// for _, globalMiddleWares := range mngr.globalMiddlewares {
+	// 	n = globalMiddleWares(n)
+	// }
 	return n
 }
