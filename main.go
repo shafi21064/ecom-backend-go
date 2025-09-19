@@ -1,24 +1,23 @@
 package main
 
-import (
-	"os"
-
-	"github.com/joho/godotenv"
-	"github.com/shafi21064/ecom-go/cmd"
-	"github.com/shafi21064/ecom-go/config"
-)
+import "github.com/shafi21064/ecom-go/cmd"
 
 func main() {
-	err := godotenv.Load()
-	if err != nil {
-		println("Faild to load env")
-		os.Exit(1)
-	}
-
-	config := config.GetConfig()
-
-	println(config.Version)
-	println(config.ServiceName)
-	println(config.HttpPort)
 	cmd.Serve()
+
+	// jwt, err := util.CreateJwt(
+	// 	"secret-one",
+	// 	util.Payload{
+	// 		Sub:         45,
+	// 		Name:        "shafi",
+	// 		Email:       "shafi@email.com",
+	// 		IsShopOwner: false,
+	// 	},
+	// )
+
+	// if err != nil {
+	// 	print(err)
+	// 	return
+	// }
+	// println(jwt)
 }

@@ -10,7 +10,6 @@ import (
 )
 
 func CreateProduct(w http.ResponseWriter, r *http.Request) {
-
 	var newProduct database.Product
 
 	decoder := json.NewDecoder(r.Body)
@@ -19,7 +18,7 @@ func CreateProduct(w http.ResponseWriter, r *http.Request) {
 
 	if err != nil {
 		fmt.Println("Error", err)
-		http.Error(w, "Please give me a valid json", http.StatusBadRequest)
+		util.SendError(w, "Please give me a valid json", http.StatusBadRequest)
 		return
 	}
 
