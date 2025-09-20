@@ -1,4 +1,4 @@
-package handlers
+package product
 
 import (
 	"net/http"
@@ -7,6 +7,6 @@ import (
 	"github.com/shafi21064/ecom-go/util"
 )
 
-func GetProducts(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) GetProducts(w http.ResponseWriter, r *http.Request) {
 	util.SendData(w, database.List(), http.StatusOK)
 }

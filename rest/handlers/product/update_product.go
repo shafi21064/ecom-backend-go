@@ -1,4 +1,4 @@
-package handlers
+package product
 
 import (
 	"encoding/json"
@@ -9,7 +9,7 @@ import (
 	"github.com/shafi21064/ecom-go/util"
 )
 
-func UpdateProduct(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 
 	var newProduct database.Product
 

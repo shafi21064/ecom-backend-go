@@ -1,4 +1,4 @@
-package handlers
+package product
 
 import (
 	"net/http"
@@ -8,7 +8,7 @@ import (
 	"github.com/shafi21064/ecom-go/util"
 )
 
-func DeleteProduct(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	productIDString := r.PathValue("id")
 
 	productId, err := strconv.Atoi(productIDString)

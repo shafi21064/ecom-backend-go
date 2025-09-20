@@ -1,4 +1,4 @@
-package handlers
+package product
 
 import (
 	"net/http"
@@ -8,7 +8,7 @@ import (
 	"github.com/shafi21064/ecom-go/util"
 )
 
-func GetProductsByID(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) GetProductsByID(w http.ResponseWriter, r *http.Request) {
 
 	productIDString := r.PathValue("id")
 

@@ -1,4 +1,4 @@
-package handlers
+package user
 
 import (
 	"encoding/json"
@@ -9,7 +9,7 @@ import (
 	"github.com/shafi21064/ecom-go/util"
 )
 
-func CreateUsers(w http.ResponseWriter, r *http.Request) {
+func (h *Handler) CreateUsers(w http.ResponseWriter, r *http.Request) {
 
 	var newUser database.Users
 
