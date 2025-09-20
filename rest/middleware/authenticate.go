@@ -6,11 +6,10 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/shafi21064/ecom-go/config"
 	"github.com/shafi21064/ecom-go/util"
 )
 
-func AuthenticateJwt(next http.Handler) http.Handler {
+func (m *Middlewares) AuthenticateJwt(next http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 
 		header := r.Header.Get("Authorization")
@@ -37,9 +36,7 @@ func AuthenticateJwt(next http.Handler) http.Handler {
 
 		message := tokenHeader + "." + tokenClaim
 
-		cnf := config.GetConfig()
-
-		byteArrSecrate := []byte(cnf.JwtSecrateKey)
+		byteArrSecrate := []byte(m.cofig.JwtSecrateKey)
 		byteArrMessage := []byte(message)
 
 		hash := hmac.New(sha256.New, byteArrSecrate)
