@@ -5,7 +5,6 @@ import (
 	"net/http"
 
 	"github.com/shafi21064/ecom-go/config"
-	"github.com/shafi21064/ecom-go/database"
 	"github.com/shafi21064/ecom-go/util"
 )
 
@@ -28,7 +27,12 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	usr := database.Find(reqLogin.Email, reqLogin.Password)
+	usr, err := h.userRepo.Get(reqLogin.Email, reqLogin.Password)
+
+	if err != nil{
+		util.SendError(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
 
 	if usr == nil {
 		util.SendError(w, "Invalid Credential", http.StatusBadRequest)

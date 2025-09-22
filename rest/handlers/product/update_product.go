@@ -5,13 +5,13 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/shafi21064/ecom-go/database"
+	"github.com/shafi21064/ecom-go/repo"
 	"github.com/shafi21064/ecom-go/util"
 )
 
 func (h *Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 
-	var newProduct database.Product
+	var newProduct RequestProduct
 
 	decoder := json.NewDecoder(r.Body)
 
@@ -23,7 +23,18 @@ func (h *Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	updatedProduct := database.Update(newProduct)
+	updatedProduct, err := h.productRepo.Update(repo.Product{
+		Title: newProduct.Title,
+		Description: newProduct.Description,
+		Price: newProduct.Price,
+		ImgUrl: newProduct.ImgUrl,
+	})
+	
+	if err != nil{
+		util.SendError(w, "Internal Server Error", http.StatusInternalServerError)
+		return
+	}
+
 	if updatedProduct == nil {
 		util.SendError(w, "Product not found", http.StatusNotFound)
 		return

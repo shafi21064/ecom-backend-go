@@ -6,7 +6,6 @@ import (
 
 	"github.com/shafi21064/ecom-go/config"
 	"github.com/shafi21064/ecom-go/rest/handlers/product"
-	"github.com/shafi21064/ecom-go/rest/handlers/review"
 	"github.com/shafi21064/ecom-go/rest/handlers/user"
 	"github.com/shafi21064/ecom-go/rest/middleware"
 )
@@ -15,20 +14,17 @@ type Server struct {
 	cnf            *config.Config
 	userHandler    *user.Handler
 	productHandler *product.Handler
-	reviewHandler  *review.Handler
 }
 
 func NewServer(
 	cnf *config.Config,
 	userHandler *user.Handler,
 	productHanler *product.Handler,
-	reviewHandler *review.Handler,
 ) *Server {
 	return &Server{
 		cnf:            cnf,
 		userHandler:    userHandler,
 		productHandler: productHanler,
-		reviewHandler:  reviewHandler,
 	}
 }
 

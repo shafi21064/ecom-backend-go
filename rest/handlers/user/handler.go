@@ -1,7 +1,13 @@
 package user
 
-type Handler struct{}
+import "github.com/shafi21064/ecom-go/repo"
 
-func NewHandler() *Handler{
-	return &Handler{}
+type Handler struct{
+	userRepo repo.UserRepo
+}
+
+func NewHandler(userRepo repo.UserRepo) *Handler{
+	return &Handler{
+		userRepo: userRepo,
+	}
 }

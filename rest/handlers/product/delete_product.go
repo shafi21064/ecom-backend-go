@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/shafi21064/ecom-go/database"
 	"github.com/shafi21064/ecom-go/util"
 )
 
@@ -14,11 +13,16 @@ func (h *Handler) DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	productId, err := strconv.Atoi(productIDString)
 
 	if err != nil {
-		http.Error(w, "Please enter a valid id", http.StatusBadRequest)
+		util.SendError(w, "Please enter a valid id", http.StatusBadRequest)
 		return
 	}
 
-	database.Delete(productId)
+	err = h.productRepo.Delete(productId)
+	
+	if err != nil {
+		util.SendError(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
 
 	util.SendData(w, "Successfully deleted", http.StatusOK)
 

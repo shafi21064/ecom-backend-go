@@ -5,13 +5,20 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/shafi21064/ecom-go/database"
+	"github.com/shafi21064/ecom-go/repo"
 	"github.com/shafi21064/ecom-go/util"
 )
 
+type RequestUser struct {
+	ID       int    `json:"id"`
+	Name     string `json:"name"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
+	IsOwner  bool   `json:"is_owner"`
+}
 func (h *Handler) CreateUsers(w http.ResponseWriter, r *http.Request) {
 
-	var newUser database.Users
+	var newUser RequestUser
 
 	decoder := json.NewDecoder(r.Body)
 
@@ -23,7 +30,12 @@ func (h *Handler) CreateUsers(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	createdUser := newUser.Store()
+	createdUser, err := h.userRepo.Create(repo.User{
+		Name: newUser.Name,
+		Email: newUser.Email,
+		Password: newUser.Password,
+		IsOwner: newUser.IsOwner,
+	})
 
 	util.SendData(w, createdUser, http.StatusCreated)
 }

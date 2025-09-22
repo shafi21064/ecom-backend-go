@@ -4,7 +4,6 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/shafi21064/ecom-go/database"
 	"github.com/shafi21064/ecom-go/util"
 )
 
@@ -19,7 +18,12 @@ func (h *Handler) GetProductsByID(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	product := database.Get(productId)
+	product, err := h.productRepo.Get(productId)
+	
+	if err != nil {
+		util.SendError(w, "Internal server error", http.StatusInternalServerError)
+		return
+	}
 
 	if product == nil {
 		util.SendError(w, "Product not found", http.StatusNotFound)
