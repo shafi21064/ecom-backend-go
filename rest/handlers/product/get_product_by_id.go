@@ -14,12 +14,12 @@ func (h *Handler) GetProductsByID(w http.ResponseWriter, r *http.Request) {
 	productId, err := strconv.Atoi(productIDString)
 
 	if err != nil {
-		http.Error(w, "Please enter a valid id", http.StatusBadRequest)
+		util.SendError(w, "Please enter a valid id", http.StatusBadRequest)
 		return
 	}
 
 	product, err := h.productRepo.Get(productId)
-	
+
 	if err != nil {
 		util.SendError(w, "Internal server error", http.StatusInternalServerError)
 		return

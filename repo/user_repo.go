@@ -35,11 +35,12 @@ func (r *userRepo) Create(u User) (*User, error) {
 	query := `
 		INSERT INTO users (name, email, password, is_owner)
 		VALUES ($1, $2, $3, $4)
-		RETURNING id, name, email, is_owner
+		RETURNING id
 	`
 
 	// Execute the query and get the inserted user
-	err := r.db.QueryRow(query, u.Name, u.Email, u.Password, u.IsOwner).Scan(&u.ID, &u.Name, &u.Email, &u.IsOwner)
+	row := r.db.QueryRow(query, u.Name, u.Email, u.Password, u.IsOwner)
+	err := row.Scan(&u.ID)
 	if err != nil {
 		return nil, err
 	}
