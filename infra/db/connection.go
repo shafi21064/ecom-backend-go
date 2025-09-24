@@ -1,23 +1,21 @@
 package db
 
 import (
+	"fmt"
+
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
+	"github.com/shafi21064/ecom-go/config"
 )
 
-func GetDBConnectionString() string {
-	// user     -> postgres
-	// password -> 12345678
-	// host     -> localhost
-	// port     -> 5432
-	// Db Name  -> e-com
-
-	return "user=postgres password=12345678 host=localhost port=5432 dbname=e-com"
+func GetDBConnectionString(cnf *config.DBConfig) string {
+	conString := fmt.Sprintf("user=%s password=%s host=%s port=%d dbname=%s", cnf.DbUser, cnf.DbPassword, cnf.DbHost, cnf.DbPort, cnf.DbName)
+	return conString
 }
 
-func NewDBConnection() (*sqlx.DB, error) {
+func NewDBConnection(cnf *config.DBConfig) (*sqlx.DB, error) {
 
-	dbSourse := GetDBConnectionString()
+	dbSourse := GetDBConnectionString(cnf)
 	dbCon, err := sqlx.Connect("postgres", dbSourse)
 
 	if err != nil {

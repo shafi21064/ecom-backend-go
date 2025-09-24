@@ -15,9 +15,9 @@ import (
 func Serve() {
 	cnf := config.GetConfig()
 
-	dbCon, err := db.NewDBConnection()
+	dbCon, err := db.NewDBConnection(cnf.DBConfig)
 	if err != nil {
-		println(err)
+		println(err.Error())
 		os.Exit(1)
 	}
 
