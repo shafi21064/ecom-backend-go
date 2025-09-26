@@ -1,6 +1,6 @@
 package middleware
 
-import "github.com/shafi21064/ecom-go/config"
+import "e-com/config"
 
 type Middlewares struct {
 	cofig *config.Config

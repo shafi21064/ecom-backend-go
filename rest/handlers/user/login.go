@@ -4,8 +4,8 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/shafi21064/ecom-go/config"
-	"github.com/shafi21064/ecom-go/util"
+	"e-com/config"
+	"e-com/util"
 )
 
 type ReqLogin struct {
@@ -29,7 +29,7 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 
 	usr, err := h.userRepo.Get(reqLogin.Email, reqLogin.Password)
 
-	if err != nil{
+	if err != nil {
 		util.SendError(w, "Internal Server Error", http.StatusInternalServerError)
 		return
 	}

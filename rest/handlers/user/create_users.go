@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/shafi21064/ecom-go/repo"
-	"github.com/shafi21064/ecom-go/util"
+	"e-com/repo"
+	"e-com/util"
 )
 
 type RequestUser struct {
@@ -16,6 +16,7 @@ type RequestUser struct {
 	Password string `json:"password"`
 	IsOwner  bool   `json:"is_owner"`
 }
+
 func (h *Handler) CreateUsers(w http.ResponseWriter, r *http.Request) {
 
 	var newUser RequestUser
@@ -31,10 +32,10 @@ func (h *Handler) CreateUsers(w http.ResponseWriter, r *http.Request) {
 	}
 
 	createdUser, err := h.userRepo.Create(repo.User{
-		Name: newUser.Name,
-		Email: newUser.Email,
+		Name:     newUser.Name,
+		Email:    newUser.Email,
 		Password: newUser.Password,
-		IsOwner: newUser.IsOwner,
+		IsOwner:  newUser.IsOwner,
 	})
 
 	util.SendData(w, createdUser, http.StatusCreated)

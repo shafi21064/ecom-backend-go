@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/shafi21064/ecom-go/util"
+	"e-com/util"
 )
 
 func (h *Handler) DeleteProduct(w http.ResponseWriter, r *http.Request) {
@@ -18,7 +18,7 @@ func (h *Handler) DeleteProduct(w http.ResponseWriter, r *http.Request) {
 	}
 
 	err = h.productRepo.Delete(productId)
-	
+
 	if err != nil {
 		util.SendError(w, "Internal server error", http.StatusInternalServerError)
 		return

@@ -4,10 +4,10 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/shafi21064/ecom-go/config"
-	"github.com/shafi21064/ecom-go/rest/handlers/product"
-	"github.com/shafi21064/ecom-go/rest/handlers/user"
-	"github.com/shafi21064/ecom-go/rest/middleware"
+	"e-com/config"
+	"e-com/rest/handlers/product"
+	"e-com/rest/handlers/user"
+	"e-com/rest/middleware"
 )
 
 type Server struct {

@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/shafi21064/ecom-go/util"
+	"e-com/util"
 )
 
 func (m *Middlewares) AuthenticateJwt(next http.Handler) http.Handler {

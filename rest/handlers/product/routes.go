@@ -3,7 +3,7 @@ package product
 import (
 	"net/http"
 
-	"github.com/shafi21064/ecom-go/rest/middleware"
+	"e-com/rest/middleware"
 )
 
 func (h *Handler) RegisterRoutes(mux *http.ServeMux, mngr *middleware.Manager) {

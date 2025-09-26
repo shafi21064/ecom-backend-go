@@ -5,8 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/shafi21064/ecom-go/repo"
-	"github.com/shafi21064/ecom-go/util"
+	"e-com/repo"
+	"e-com/util"
 )
 
 type RequestProduct struct {

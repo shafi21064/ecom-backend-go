@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/shafi21064/ecom-go/repo"
-	"github.com/shafi21064/ecom-go/util"
+	"e-com/repo"
+	"e-com/util"
 )
 
 func (h *Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {

@@ -12,7 +12,7 @@ type User struct {
 	Name     string `json:"name"`
 	Email    string `json:"email"`
 	Password string `json:"password"`
-	IsOwner  bool   `json:"is_owner"`
+	IsOwner  bool   `json:"is_owner" db:"is_owner"`
 }
 
 type UserRepo interface {
@@ -54,13 +54,15 @@ func (r *userRepo) Get(email string, password string) (*User, error) {
 	var u User
 
 	// sqlx allows struct mapping automatically
-	query := `SELECT id, name, email, password, is_owner FROM users WHERE email=$1 AND password=$2`
+	query := `SELECT id, name, email, password, is_owner FROM users 
+	WHERE email=$1 AND password=$2`
 	err := r.db.Get(&u, query, email, password)
 	if err != nil {
 		if err == sql.ErrNoRows || err.Error() == "sql: no rows in result set" {
 			return nil, nil // user not found
 		}
 		return nil, err
+
 	}
 
 	u.Password = "" // do not return password

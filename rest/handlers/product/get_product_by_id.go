@@ -4,7 +4,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/shafi21064/ecom-go/util"
+	"e-com/util"
 )
 
 func (h *Handler) GetProductsByID(w http.ResponseWriter, r *http.Request) {

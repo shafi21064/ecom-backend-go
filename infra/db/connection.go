@@ -3,9 +3,10 @@ package db
 import (
 	"fmt"
 
+	"e-com/config"
+
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
-	"github.com/shafi21064/ecom-go/config"
 )
 
 func GetDBConnectionString(cnf *config.DBConfig) string {

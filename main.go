@@ -1,6 +1,6 @@
 package main
 
-import "github.com/shafi21064/ecom-go/cmd"
+import "e-com/cmd"
 
 func main() {
 	cmd.Serve()
