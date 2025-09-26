@@ -3,16 +3,14 @@ package repo
 import (
 	"database/sql"
 	"e-com/domain"
+	"e-com/user"
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 )
 
-
-
 type UserRepo interface {
-	Create(domain.User) (*domain.User, error)
-	Get(email string, password string) (*domain.User, error)
+	user.UserRepo
 }
 
 type userRepo struct {

@@ -29,7 +29,7 @@ func (h *Handler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	createdProduct, err := h.productRepo.Create(domain.Product{
+	createdProduct, err := h.svc.Create(domain.Product{
 		Title:       newProduct.Title,
 		Description: newProduct.Description,
 		Price:       newProduct.Price,

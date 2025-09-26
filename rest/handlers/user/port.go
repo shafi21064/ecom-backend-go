@@ -1,15 +1,8 @@
 package user
 
-import (
-	"e-com/domain"
-	userHandler "e-com/rest/handlers/user"
-)
+import "e-com/domain"
 
 type Service interface {
-	userHandler.Service //embeding
-}
-
-type UserRepo interface {
 	Create(user domain.User) (*domain.User, error)
 	Get(email string, password string) (*domain.User, error)
 }

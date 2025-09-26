@@ -1,13 +1,17 @@
 package user
 
-import "e-com/repo"
+import (
+	"e-com/config"
+)
 
 type Handler struct {
-	userRepo repo.UserRepo
+	cnf *config.Config
+	svc Service
 }
 
-func NewHandler(userRepo repo.UserRepo) *Handler {
+func NewHandler(cnf *config.Config, svc Service) *Handler {
 	return &Handler{
-		userRepo: userRepo,
+		cnf: cnf,
+		svc: svc,
 	}
 }

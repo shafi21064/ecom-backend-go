@@ -3,21 +3,17 @@ package repo
 import (
 	"database/sql"
 	"e-com/domain"
+	"e-com/product"
 
 	"github.com/jmoiron/sqlx"
 )
-
 
 type productRepo struct {
 	db *sqlx.DB
 }
 
 type ProductRepo interface {
-	Create(domain.Product) (*domain.Product, error)
-	Get(int) (*domain.Product, error)
-	List() ([]*domain.Product, error)
-	Update(int, domain.Product) (*domain.Product, error)
-	Delete(productID int) error
+	product.ProductRepo
 }
 
 func NewProductRepo(db *sqlx.DB) ProductRepo {

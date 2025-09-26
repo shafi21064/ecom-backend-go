@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"e-com/config"
 	"e-com/util"
 )
 
@@ -27,7 +26,7 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	usr, err := h.userRepo.Get(reqLogin.Email, reqLogin.Password)
+	usr, err := h.svc.Get(reqLogin.Email, reqLogin.Password)
 
 	if err != nil {
 		util.SendError(w, "Internal Server Error", http.StatusInternalServerError)
@@ -39,10 +38,8 @@ func (h *Handler) Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	cnf := config.GetConfig()
-
 	jwt, err := util.CreateJwt(
-		cnf.JwtSecrateKey,
+		h.cnf.JwtSecrateKey,
 		util.Payload{
 			Sub:         usr.ID,
 			Name:        usr.Name,

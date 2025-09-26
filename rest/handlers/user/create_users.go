@@ -31,12 +31,17 @@ func (h *Handler) CreateUsers(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	createdUser, err := h.userRepo.Create(domain.User{
+	createdUser, err := h.svc.Create(domain.User{
 		Name:     newUser.Name,
 		Email:    newUser.Email,
 		Password: newUser.Password,
 		IsOwner:  newUser.IsOwner,
 	})
+
+	if err != nil {
+		util.SendError(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
 
 	util.SendData(w, createdUser, http.StatusCreated)
 }

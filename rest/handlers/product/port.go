@@ -1,15 +1,9 @@
 package product
 
-import (
-	"e-com/domain"
-	productHandler "e-com/rest/handlers/product"
-)
+
+import "e-com/domain"
 
 type Service interface {
-	productHandler.Service
-}
-
-type ProductRepo interface {
 	Create(product domain.Product) (*domain.Product, error)
 	Get(productID int) (*domain.Product, error)
 	List() ([]*domain.Product, error)

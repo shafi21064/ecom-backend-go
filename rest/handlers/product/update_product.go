@@ -32,7 +32,7 @@ func (h *Handler) UpdateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	updatedProduct, err := h.productRepo.Update(
+	updatedProduct, err := h.svc.Update(
 		productId,
 		domain.Product{
 			Title:       newProduct.Title,
