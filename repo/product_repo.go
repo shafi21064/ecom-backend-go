@@ -2,27 +2,21 @@ package repo
 
 import (
 	"database/sql"
+	"e-com/domain"
 
 	"github.com/jmoiron/sqlx"
 )
 
-type Product struct {
-	ID          int     `json:"id" db:"id"`
-	Title       string  `json:"title" db:"title"`
-	Description string  `json:"description" db:"description"`
-	Price       float64 `json:"price" db:"price"`
-	ImgUrl      string  `json:"imageUrl" db:"img_url"`
-}
 
 type productRepo struct {
 	db *sqlx.DB
 }
 
 type ProductRepo interface {
-	Create(Product) (*Product, error)
-	Get(int) (*Product, error)
-	List() ([]*Product, error)
-	Update(int, Product) (*Product, error)
+	Create(domain.Product) (*domain.Product, error)
+	Get(int) (*domain.Product, error)
+	List() ([]*domain.Product, error)
+	Update(int, domain.Product) (*domain.Product, error)
 	Delete(productID int) error
 }
 
@@ -32,7 +26,7 @@ func NewProductRepo(db *sqlx.DB) ProductRepo {
 	}
 }
 
-func (r *productRepo) Create(p Product) (*Product, error) {
+func (r *productRepo) Create(p domain.Product) (*domain.Product, error) {
 	query := `
 	INSERT INTO products (title, description,price,img_url)
 	VALUES($1,$2,$3,$4)
@@ -47,8 +41,8 @@ func (r *productRepo) Create(p Product) (*Product, error) {
 	return &p, nil
 }
 
-func (r *productRepo) Get(productID int) (*Product, error) {
-	var prd Product
+func (r *productRepo) Get(productID int) (*domain.Product, error) {
+	var prd domain.Product
 
 	query := `
 	SELECT id, title, description, price, img_url FROM products 
@@ -64,8 +58,8 @@ func (r *productRepo) Get(productID int) (*Product, error) {
 	return &prd, nil
 }
 
-func (r *productRepo) List() ([]*Product, error) {
-	var prdList []*Product
+func (r *productRepo) List() ([]*domain.Product, error) {
+	var prdList []*domain.Product
 	query := `
 	SELECT id, title, description, price, img_url FROM products
 	`
@@ -80,7 +74,7 @@ func (r *productRepo) List() ([]*Product, error) {
 	return prdList, nil
 }
 
-func (r *productRepo) Update(pid int, p Product) (*Product, error) {
+func (r *productRepo) Update(pid int, p domain.Product) (*domain.Product, error) {
 
 	query := `
 	UPDATE products SET

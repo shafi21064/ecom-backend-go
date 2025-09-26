@@ -2,22 +2,17 @@ package repo
 
 import (
 	"database/sql"
+	"e-com/domain"
 
 	"github.com/jmoiron/sqlx"
 	_ "github.com/lib/pq"
 )
 
-type User struct {
-	ID       int    `json:"id"`
-	Name     string `json:"name"`
-	Email    string `json:"email"`
-	Password string `json:"password"`
-	IsOwner  bool   `json:"is_owner" db:"is_owner"`
-}
+
 
 type UserRepo interface {
-	Create(User) (*User, error)
-	Get(email string, password string) (*User, error)
+	Create(domain.User) (*domain.User, error)
+	Get(email string, password string) (*domain.User, error)
 }
 
 type userRepo struct {
@@ -31,7 +26,7 @@ func NewUserRepo(db *sqlx.DB) UserRepo {
 }
 
 // Create inserts a new user into the database
-func (r *userRepo) Create(u User) (*User, error) {
+func (r *userRepo) Create(u domain.User) (*domain.User, error) {
 	query := `
 		INSERT INTO users (name, email, password, is_owner)
 		VALUES ($1, $2, $3, $4)
@@ -50,8 +45,8 @@ func (r *userRepo) Create(u User) (*User, error) {
 	return &u, nil
 }
 
-func (r *userRepo) Get(email string, password string) (*User, error) {
-	var u User
+func (r *userRepo) Get(email string, password string) (*domain.User, error) {
+	var u domain.User
 
 	// sqlx allows struct mapping automatically
 	query := `SELECT id, name, email, password, is_owner FROM users 

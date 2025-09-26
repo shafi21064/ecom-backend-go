@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"e-com/repo"
+	"e-com/domain"
 	"e-com/util"
 )
 
@@ -29,7 +29,7 @@ func (h *Handler) CreateProduct(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	createdProduct, err := h.productRepo.Create(repo.Product{
+	createdProduct, err := h.productRepo.Create(domain.Product{
 		Title:       newProduct.Title,
 		Description: newProduct.Description,
 		Price:       newProduct.Price,

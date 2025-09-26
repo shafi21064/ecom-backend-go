@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"e-com/repo"
+	"e-com/domain"
 	"e-com/util"
 )
 
@@ -31,7 +31,7 @@ func (h *Handler) CreateUsers(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	createdUser, err := h.userRepo.Create(repo.User{
+	createdUser, err := h.userRepo.Create(domain.User{
 		Name:     newUser.Name,
 		Email:    newUser.Email,
 		Password: newUser.Password,
