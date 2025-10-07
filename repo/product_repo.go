@@ -54,12 +54,19 @@ func (r *productRepo) Get(productID int) (*domain.Product, error) {
 	return &prd, nil
 }
 
-func (r *productRepo) List() ([]*domain.Product, error) {
+func (r *productRepo) List(page, limit int) ([]*domain.Product, error) {
+
+	offset := ((page - 1) * limit) + 1
+
 	var prdList []*domain.Product
+
 	query := `
-	SELECT id, title, description, price, img_url FROM products
+	SELECT id, title, description, price, img_url 
+	FROM products
+	ORDER BY id
+	LIMIT $1 OFFSET $2
 	`
-	err := r.db.Select(&prdList, query)
+	err := r.db.Select(&prdList, query, limit, offset)
 	if err != nil {
 		if err == sql.ErrNoRows || err.Error() == "sql: no rows in result set" {
 			return nil, nil // product not found
@@ -68,6 +75,19 @@ func (r *productRepo) List() ([]*domain.Product, error) {
 	}
 
 	return prdList, nil
+}
+
+func (r *productRepo) Count() (int, error) {
+	var count int
+
+	query := `SELECT COUNT(*) FROM products`
+
+	err := r.db.Get(&count, query)
+	if err != nil {
+		return 0, err
+	}
+
+	return count, nil
 }
 
 func (r *productRepo) Update(pid int, p domain.Product) (*domain.Product, error) {

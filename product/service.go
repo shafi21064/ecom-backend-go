@@ -38,8 +38,8 @@ func (svc *service) Get(productId int) (*domain.Product, error) {
 	return prd, nil
 }
 
-func (svc *service) List() ([]*domain.Product, error) {
-	prd, err := svc.productRepo.List()
+func (svc *service) List(page, limit int) ([]*domain.Product, error) {
+	prd, err := svc.productRepo.List(page, limit)
 	if err != nil {
 		return nil, err
 	}
@@ -48,6 +48,14 @@ func (svc *service) List() ([]*domain.Product, error) {
 	}
 
 	return prd, nil
+}
+
+func (svc *service) Count() (int, error) {
+	count, err := svc.productRepo.Count()
+	if err != nil {
+		return 0, err
+	}
+	return count, nil
 }
 
 func (svc *service) Update(productID int, product domain.Product) (*domain.Product, error) {

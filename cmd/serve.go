@@ -5,6 +5,7 @@ import (
 
 	"e-com/config"
 	"e-com/infra/db"
+	"e-com/product"
 	"e-com/repo"
 	"e-com/rest"
 	productHandler "e-com/rest/handlers/product"
@@ -34,13 +35,14 @@ func Serve() {
 
 	// Domain
 	userSvc := user.NewService(userRepo)
+	productSvc := product.NewService(productRepo)
 
 	// Middleware
 	middleware := middleware.NewMiddlewares(cnf)
 
 	// Handler
 	userHandler := userHandler.NewHandler(cnf, userSvc)
-	productHandler := productHandler.NewHandler(middleware, productRepo)
+	productHandler := productHandler.NewHandler(middleware, productSvc)
 
 	server := rest.NewServer(
 		cnf,
